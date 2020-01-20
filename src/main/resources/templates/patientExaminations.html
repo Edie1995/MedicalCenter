@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/addVisitStyle.css">
+<script src="js/additional.js"></script>
+<title>Badania</title>
+</head>
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/profilePatient.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeSymptoms.html}">Objawy</a></li>
+				<li><a th:href="@{/patientExaminations.html}">Badania</a></li>
+				<li><a th:href="@{/calendar.html}">Kalendarz</a></li>
+				<li><a th:href="@{/homePatientDiagnosis.html}">Historia
+						chorób</a></li>
+				<li><a th:href="@{/homePatientMedicaments.html}">Leczenie</a></li>
+			</ul>
+		</nav>
+	</aside>
+	<main>
+		<div>
+			<p class="succes" th:if="${succes}==0">Pomyślnie dodano badanie
+			<p class="error" th:if="${succes}==1">Nie udało się dodać badania,
+				spróbuj ponownie!
+				<p class="error" th:if="${succes}==2">Plik za duży! Wybierz plik poniżej 5MB.
+		</div>
+
+		<h3>Dodaj badanie</h3>
+		<form method="post" action="save.html" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td><label for="name">Nazwa badania</label></td>
+					<td><input name="name" id="name" /></td>
+				</tr>
+				<tr>
+					<td><label>Opis</label></td>
+					<td><textarea name="description" id="description" /></textarea></td>
+				</tr>
+				<tr>
+					<td><label>Plik</label></td>
+					<td><label for="file" class="button">Wybierz plik</label><input class="file" type="file" name="file" id="file"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input class="button" type="submit" value="Zapisz plik" /></td>
+				</tr>
+			</table>
+		</form>
+
+		<br />
+		<h3>Lista badań</h3>
+		<p class="empty" th:if="${#lists.isEmpty(documentList)}">Brak plików</p>
+		<th:if test="${!empty documentList}">
+			<table class="data">
+				<tr>
+					<th>Nazwa badania</th>
+					<th>Opis</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr th:each="document:${documentList}">
+					<td width="100px" th:utext="${document.name}"></td>
+					<td width="250px" th:utext="${document.description}"></td>
+					<td width="20px"><a
+						th:href="@{'patientExaminations/download/' + ${document.id}}"><img class="save-img"
+							src="css/img/save.png" border="0" title="Download this document" /></a></td>
+				</tr>
+			</table>
+		</th:if>
+	</main>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+</html>

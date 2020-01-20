@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Objawy</title>
+<link rel="stylesheet" href="css/symptom.css">
+<meta charset="utf-8">
+<script src="js/additional.js"></script>
+</head>
+
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/profilePatient.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeSymptoms.html}">Objawy</a></li>
+				<li><a th:href="@{/patientExaminations.html}">Badania</a></li>
+				<li><a th:href="@{/calendar.html}">Kalendarz</a></li>
+				<li><a th:href="@{/homePatientDiagnosis.html}">Historia
+						chorób</a></li>
+				<li><a th:href="@{/homePatientMedicaments.html}">Leczenie</a></li>
+			</ul>
+		</nav>
+	</aside>
+	<div class="info">
+			<p class="succes" th:if="${succes}==0" >Pomyślnie dodano symptom!
+			<p class="error" th:if="${succes}==1" >Nie udało się dodać objawu, spróbuj ponownie!
+		</div>
+	<div class="addSymptom">
+		<form th:action="@{/patientsSymptoms/add}" th:object="${symptomName}"
+			onsubmit="return confirm('Czy na pewno chcesz dodać objaw?');"
+			method="post">
+			<p>DODAJ OBJAW</p>
+			<ul>
+				<li><select th:field="*{id}" id="addSymptom" required>
+						<option value=""></option>
+						<option th:each="symptom: ${symptomsDic}"
+							th:value="${symptom.getId()}" th:utext="${symptom.getName()}"></option>
+				</select></li>
+				<li><input type="date" id="symptomAddDate" name="date"
+					th:object="${date}" min='2019-12-16' max='2000-13-13' required></li>
+
+				<li><input class="button" type="submit" name="addSymptom"
+					value="Dodaj"></li>
+			</ul>
+		</form>
+		<img src="css/img/Symptoms.png" alt="symptoms">
+	</div>
+	<div class="searchSymptom">
+		<form th:action="@{patientsSymptoms/symptom/}"
+			th:object="${symptomName}" method="post">
+			<p>WYSZUKAJ OBJAWY</p>
+			<ul>
+				<li><select th:field="*{id}" id="searchSymptom">
+						<option value=""></option>
+						<option th:each="symptom: ${symptomsDic}"
+							th:value="${symptom.getId()}" th:utext="${symptom.getName()}"></option>
+				</select></li>
+
+				<li><input type="date" value='2019-11-10' name="date"
+					th:object="${date}" id="symptomSearchDate"></li>
+				<li><input class="button" type="submit" value="Szukaj"></li>
+			</ul>
+			<script>
+				setDateInput();
+			</script>
+		</form>
+		<form th:action="@{/homeSymptoms.html}" method="get">
+			<ul>
+				<li><input class="button" type="submit" value="Wyczysc filtry"></li>
+			</ul>
+		</form>
+		<ul>
+			<li>
+				<p th:if="${#lists.isEmpty(patientSymptoms)}">Brak elementów do
+					wyświetlenia</p>
+				<table th:unless="${#lists.isEmpty(patientSymptoms)}" id="symptomTable">
+					<tr>
+						<th>Objaw</th>
+						<th>Data</th>
+						<th>Wizyta</th>
+					</tr>
+
+					<tr th:each="symptom: ${patientSymptoms}">
+
+						<td id="symptomName" th:text="${symptom.getSymptomName()}" />
+						<td id="symptomDate" th:text="${symptom.getDate()}" />
+						<td>
+							<div class="moreInfo">
+								<a
+									th:utext="(${symptom.getVisit()}==null)? ('-') : ('dodana podczas wizyty')"></a>
+								<span class="ok"
+									th:text="((${symptom.getVisit()}!=null)? ('dodane przez: ' + ${symptom.getVisit().getDoctor().getFirstName()} + ' ' +${symptom.getVisit().getDoctor().getLastName()}) : ('brak wizyty'))"></span>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+			</li>
+		</ul>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(click) {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+
+
+</html>

@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="css/styles.css">
+<title>Home</title>
+</head>
+
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/doctorProfile.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+
+
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeRegisteredPatient.html}">Zarejestrowani</a>
+				</li>
+				<li><a th:href="@{/homeDoctorSchedule.html}">Grafik</a></li>
+
+
+			</ul>
+		</nav>
+	</aside>
+
+	<main class="doctorHomePage">
+
+		<p class="text">
+			<b>Witaj na swoim koncie!</b><br> Za pomocą funkcji "profil"
+			możesz aktualizować swoje dane<br> Wybierając opcję
+			"zarejestrowani" możesz przeglądać zarejestrowanych pacjentów oraz
+			przeprowadzać wizyty.<br> Po wybraniu opcji "grafik" możesz
+			sprawdzić zaplanowane wydarzenia oraz dodać nowe godziny przyjęć<br>
+		</p>
+		<img src="css/img/patientHome.png" alt="lekarz strona startowa">
+
+	</main>
+
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+
+</html>

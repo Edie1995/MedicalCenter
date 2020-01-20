@@ -1,0 +1,97 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="css/patientMedicamet.css">
+<title>Diagnozy</title>
+</head>
+
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/profilePatient.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeSymptoms.html}">Objawy</a></li>
+				<li><a th:href="@{/patientExaminations.html}">Badania</a></li>
+				<li><a th:href="@{/calendar.html}">Kalendarz</a></li>
+				<li><a th:href="@{/homePatientDiagnosis.html}">Historia
+						chorób</a></li>
+				<li><a th:href="@{/homePatientMedicaments.html}">Leczenie</a></li>
+			</ul>
+		</nav>
+	</aside>
+	<main>
+		<form th:action="@{/patientDiagnosis/name}" method="post">
+			<ul>
+				<li><select name="diagnosisName">
+						<option value=""></option>
+						<option th:each="diag: ${diagnosisDic}"
+							th:value="${diag.getName()}" th:utext="${diag.getName()}"></option>
+				</select></li>
+				<li><input class="button" type="submit" value="Szukaj">
+				</li>
+			</ul>
+		</form>
+		<p class="empty" th:if="${#lists.isEmpty(diagnosis)}">Brak
+			postawionych diagnoz</p>
+		<div th:unless="${#lists.isEmpty(diagnosis)}">
+			<form th:action="@{/patientDiagnosis.html}" th:method="post">
+
+				<div class="radio">
+					<input type="radio" id="radio1" name="statusNumber" th:value="0"><label
+						for="radio1">aktywne</label> <input type="radio" id="radio2"
+						name="statusNumber" th:value="1"><label for="radio2">nieaktywne</label>
+
+					<input type="submit" class="button" value="wybierz">
+				</div>
+
+			</form>
+			<table>
+				<tr>
+					<th>Nazwa</th>
+					<th>Szczegóły</th>
+					<th>Data diagnozy</th>
+					<th>Status</th>
+				</tr>
+				<tr th:each="diag:${diagnosis}">
+					<td th:text="${diag.getName()}" />
+					<td>
+						<div class="moreInfo">
+							<a th:text="${diag.getDetails()}"></a> <span class="ok"
+								th:text="('dodane przez: ' + ${diag.getVisit().getDoctor().getFirstName()} + ' ' +${diag.getVisit().getDoctor().getLastName()})"></span>
+						</div>
+					</td>
+					<td th:text="${diag.getVisit().getDate().toLocalDate()}" />
+					<td th:text="${diag.getStatus()}" />
+				</tr>
+			</table>
+		</div>
+
+	</main>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+
+</html>

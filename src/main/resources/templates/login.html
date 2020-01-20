@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Logowanie</title>
+<link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+</head>
+
+<body>
+	<header>
+		<img src="css/img/logo.png" alt="application logo">
+	</header>
+
+
+	<h1>
+		Witaj <br> w systemie wspomagającym <br> Twoje zdrowie!
+	</h1>
+	<main class="helloImg">
+		<p th:if="${loginError}" class="error">Wrong username or password</p>
+		<form class="inputButtons" th:action="@{/login.html}" method="post">
+			<ul>
+				<li><input class="fields" type="text" id="username"
+					name="username" autofocus="autofocus" placeholder="Type your login"
+					required></li>
+				<li><input class="fields" type="password" id="password"
+					name="password" placeholder="Type your password" required></li>
+				<li><input class="button" type="submit" value="zaloguj"
+					id="logIn"></li>
+					<li></li>
+			</ul>
+		</form>
+		<form class="inputButtons" th:action="@{/registerAccount.html}" method="get">
+		<ul class="register">
+			<li><input class="button" type="submit" value="zarejestruj"
+				id="register"></li>
+		</ul>
+		</form>
+	</main>
+	<img class="login" src="css/img/witaj.png" alt="hello image">
+</body>
+
+</html>

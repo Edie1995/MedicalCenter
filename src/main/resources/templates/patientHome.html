@@ -1,0 +1,88 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="css/styles.css">
+<title>Home</title>
+</head>
+
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/profilePatient.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeSymptoms.html}">Objawy</a></li>
+				<li><a th:href="@{/patientExaminations.html}">Badania</a></li>
+				<li><a th:href="@{/calendar.html}">Kalendarz</a></li>
+				<li><a th:href="@{/homePatientDiagnosis.html}">Historia
+						chorób</a></li>
+				<li><a th:href="@{/homePatientMedicaments.html}">Leczenie</a></li>
+			</ul>
+		</nav>
+	</aside>
+
+	<main class="pateintHomePage">
+
+		<p class="text">
+			<b>Pamiętaj aby pić co najmniej 1,5l wody dziennie</b><br>
+			Codzienne picie wody wspomaga pracę całego organizmu. Woda m. in.
+			wpływa pozytywnie na nasz metabolizm, pomaga w walce z nadciśnieniem,
+			wpomaga pracę nerek oraz sprawia, że nasza skóra jest bardziej
+			sprężysta. Jest to najbardziej naturalny i potrzebny organizmowi
+			napój. Woda jest głównym bulcem organizmu i w ciele człowieka może
+			stanowić nawet 75%. <br> <br> <b>Zacznij się ruszać</b> <br>Nie
+			musisz codziennie ćwiczyć w pocie czoła. Wystarczy, że ograniczysz
+			jazdę samochodem lub tramwajem. Pojedziesz do pracy na rowerze, lub
+			przejdziesz się na piechotę. Jeżeli masz pracę siedzącą, tym bardziej
+			powinieneś zadbać o zwiększenie ilości ruchu. Aktywność fizyczna
+			obniża ryzyko chorób serca, otyłości oraz pozytywnie wpływa na
+			nastrój i redukuje stres. <br> <br> <b>Nie zapominaj o
+				śnie</b><br> Podczas snu regeneruje się Twój organizm. Pamiętaj,
+			aby spać 7-9 h na dobę. Dodatkowo zadbaj o jego dobrą jakość. Nie korzystaj z
+			telefonu, czy komputera, tuż przed położeniem się spać. Światło
+			urządzeń wpływa niekorzystnie na Twój odpoczynek. Zaleca się, aby
+			wyciszyć się co najmniej godzinę przed położeniem się spać. Można np. poczytać
+			książkę lub posłuchać spokojnej muzyki.<br> <br> <b>Jedz
+				co najmniej 5 porcji owoców i warzyw dziennie</b><br> Piramida
+			żywienia zaleca tworzenie posiłków tak, aby conajmniej połowę
+			stanowiły owoce i warzywa. Należy jeść więcej warzyw (mniej
+			więcej 3/4) i 1/4 owoców. Są one cennym źódłem witamin i minerałów,
+			które potrzebne są do zachowania prawidłowego funkcjonowania Twojego
+			organizmu.<br><br>
+
+
+
+		</p>
+
+
+	</main>
+	<img class="start" src="css/img/patientHome.png"
+		alt="pacjent strona startowa">
+
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+
+</html>

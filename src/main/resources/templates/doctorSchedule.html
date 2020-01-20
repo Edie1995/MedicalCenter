@@ -1,0 +1,84 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="css/calendar.css">
+<title>Grafik</title>
+<script src="js/additional.js"></script>
+</head>
+
+<body>
+	<header>
+		<a th:href="@{/home.html}"> <img src="css/img/logo.png"
+			alt="application logo">
+		</a>
+		<ul>
+			<li><a th:href="@{/doctorProfile.html}">Profil</a></li>
+			<li><a th:href="@{/logout}">Wyloguj</a></li>
+		</ul>
+
+
+	</header>
+	<aside>
+		<div class="menu-trigger">Menu</div>
+		<nav>
+			<ul class="homeCheckList">
+
+				<li><a th:href="@{/homeRegisteredPatient.html}">Zarejestrowani</a>
+				</li>
+				<li><a th:href="@{/homeDoctorSchedule.html}">Grafik</a></li>
+
+
+			</ul>
+		</nav>
+	</aside>
+	<main class="doctorSchedule">
+		<ul>
+
+			<li><form class="searchByDate"
+					th:action="@{/doctorSchedule/search}" method="post">
+					<input type="date" class="text" id="date" name="date" required>
+					<input type="submit" class="button" name="search" value="Zmień">
+				</form></li>
+		</ul>
+		<h3 th:text="${chosenDate}"></h3>
+		<ul>
+
+			<li th:each="calendar:${calendars}">
+
+				<h4 th:text="${calendar.getDate().toLocalTime()}"></h4>
+				<p th:value="${calendar.getVisitType()}"
+					th:utext="'typ wizyty: ' + (${calendar.getVisitType().getName()}==${specialization}?'konsultacja':${calendar.getVisitType().getName()})"></p>
+				<p th:value="${calendar.getInstitution()}"
+					th:utext="'nazwa placówki: ' + ${calendar.getInstitution().getName()}"></p>
+				<p th:value="${calendar.getInstitution()}"
+					th:utext="'adres: ' + ${calendar.getInstitution().getCity()} + ', ' + ${calendar.getInstitution().getAdress()}" ></p>
+				<p
+					th:utext="'status: ' + (${calendar.getPatient()==null} ? 'wolne' : 'zarezerwowane') " />
+			</li>
+		</ul>
+		<form th:action="@{/addSchedule.html}" method="get">
+			<input class="button1" type="submit" value="dodaj godziny przyjęć">
+		</form>
+	</main>
+	<img src="css/img/Profile.png" alt="pacjent profil">
+	<script>
+		setDateInputToday();
+	</script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function() {
+
+			$(".menu-trigger").click(function() {
+
+				$('nav').slideToggle();
+
+			});
+
+		});
+	</script>
+</body>
+
+</html>
